@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — સ્વાદિષ્ટEats</title>
+  <meta name="description" content="Login to સ્વાદિષ્ટEats — order food or manage your restaurant." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🍽️%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================
+       DESIGN TOKENS
+       ========================================================= */
+    :root {
+      --primary:       #FF6B35;
+      --primary-dark:  #e85520;
+      --primary-light: #FF8C60;
+      --secondary:     #E63946;
+      --accent:        #FFB703;
+
+      --bg-base:   #0A0A0F;
+      --bg-card:   #13131A;
+      --bg-card2:  #1A1A26;
+      --bg-glass:  rgba(255,255,255,0.04);
+
+      --text-primary:   #FFFFFF;
+      --text-secondary: #B0B3C1;
+      --text-muted:     #6B6E82;
+
+      --border:       rgba(255,255,255,0.09);
+      --border-focus: rgba(255,107,53,0.6);
+      --border-hover: rgba(255,107,53,0.35);
+
+      --grad-primary: linear-gradient(135deg, #FF6B35 0%, #E63946 100%);
+
+      --font-main: 'Poppins', sans-serif;
+      --font-body: 'Inter', sans-serif;
+
+      --radius-sm:  8px;
+      --radius-md:  14px;
+      --radius-lg:  20px;
+      --radius-xl:  28px;
+      --radius-pill: 9999px;
+
+      --shadow-card: 0 8px 32px rgba(0,0,0,0.5);
+      --shadow-glow: 0 0 40px rgba(255,107,53,0.2);
+      --ease:        cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* =========================================================
+       RESET
+       ========================================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    input, select { font-family: inherit; }
+
+    /* =========================================================
+       PAGE LAYOUT — Two panels on desktop, single column on mobile
+       ========================================================= */
+    .page-wrap {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Background glows */
+    .glow-1, .glow-2 {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .glow-1 { top: -20%; left: -10%; width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(255,107,53,0.10) 0%, transparent 70%); }
+    .glow-2 { bottom: -25%; right: -10%; width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(230,57,70,0.07) 0%, transparent 70%); }
+
+    /* ── Left branding panel ── */
+    .panel-left {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px 56px;
+      background: linear-gradient(160deg, rgba(255,107,53,0.08) 0%, rgba(230,57,70,0.04) 100%);
+      border-right: 1px solid var(--border);
+      min-height: 100vh;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .brand-logo-icon {
+      width: 48px; height: 48px;
+      background: var(--grad-primary);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 20px rgba(255,107,53,0.4);
+      flex-shrink: 0;
+    }
+
+    .brand-logo-text {
+      font-family: var(--font-main);
+      font-size: 1.3rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .brand-logo-text .g { color: var(--primary); }
+    .brand-logo-text .e { color: var(--text-primary); }
+
+    .tagline {
+      font-family: var(--font-main);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .tagline .highlight {
+      background: var(--grad-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tagline-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 380px;
+      margin-bottom: 40px;
+    }
+
+    .feature-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      transition: border-color 0.2s var(--ease);
+    }
+
+    .feature-item:hover { border-color: var(--border-hover); }
+    .fi-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .fi-text { font-size: 0.88rem; color: var(--text-secondary); }
+    .fi-text strong { display: block; font-size: 0.92rem; color: var(--text-primary); font-weight: 600; margin-bottom: 1px; }
+
+    /* ── Right form panel ── */
+    .panel-right {
+      width: 460px;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 40px;
+      min-height: 100vh;
+      overflow-y: auto;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 380px;
+    }
+
+    /* ── Card header ── */
+    .card-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .card-header-emoji {
+      font-size: 2.8rem;
+      display: block;
+      margin-bottom: 12px;
+      animation: pop-in 0.5s var(--ease);
+    }
+
+    @keyframes pop-in {
+      from { transform: scale(0.6); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+
+    .card-title {
+      font-family: var(--font-main);
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .card-subtitle { font-size: 0.88rem; color: var(--text-secondary); }
+
+    /* ── Alert box ── */
+    .alert-box {
+      display: none;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.86rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      border: 1px solid transparent;
+    }
+
+    .alert-box.error {
+      display: block;
+      background: rgba(244, 67, 54, 0.1);
+      border-color: rgba(244, 67, 54, 0.3);
+      color: #FFCDD2;
+    }
+
+    .alert-box.success {
+      display: block;
+      background: rgba(76, 175, 80, 0.1);
+      border-color: rgba(76, 175, 80, 0.3);
+      color: #C8E6C9;
+    }
+
+    .alert-box.info {
+      display: block;
+      background: rgba(255, 183, 3, 0.1);
+      border-color: rgba(255, 183, 3, 0.3);
+      color: #FFF9C4;
+    }
+
+    /* ── Form ── */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 7px;
+      letter-spacing: 0.2px;
+    }
+
+    .form-input {
+      width: 100%;
+      height: 48px;
+      padding: 0 14px;
+      background: var(--bg-card2);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 0.92rem;
+      font-family: var(--font-body);
+      outline: none;
+      transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    }
+
+    .form-input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.12);
+      background: var(--bg-card);
+    }
+
+    .form-input::placeholder { color: var(--text-muted); }
+
+    /* Password field wrapper */
+    .pw-wrap { position: relative; }
+
+    .pw-wrap .form-input { padding-right: 46px; }
+
+    .pw-toggle {
+      position: absolute;
+      right: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      color: var(--text-muted);
+      transition: color 0.15s;
+      padding: 4px;
+      line-height: 1;
+    }
+
+    .pw-toggle:hover { color: var(--text-primary); }
+
+    /* ── Forgot link ── */
+    .forgot-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 20px;
+    }
+
+    .forgot-link {
+      font-size: 0.8rem;
+      color: var(--primary-light);
+      transition: opacity 0.15s;
+    }
+
+    .forgot-link:hover { opacity: 0.8; text-decoration: underline; }
+
+    /* ── Buttons ── */
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 50px;
+      padding: 0 24px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-main);
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), opacity 0.2s;
+      cursor: pointer;
+      border: none;
+      width: 100%;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-primary {
+      background: var(--grad-primary);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(255, 107, 53, 0.55);
+    }
+
+    .btn-primary:disabled { opacity: 0.65; cursor: not-allowed; }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--text-secondary);
+      height: 44px;
+      font-size: 0.84rem;
+    }
+
+    .btn-outline:hover { border-color: var(--border-hover); color: var(--primary-light); }
+
+    /* ── Divider ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Demo buttons ── */
+    .demo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .demo-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    /* ── Bottom link row ── */
+    .link-row {
+      text-align: center;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+    }
+
+    .link-row a {
+      color: var(--primary-light);
+      font-weight: 600;
+      transition: opacity 0.15s;
+    }
+
+    .link-row a:hover { opacity: 0.8; text-decoration: underline; }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      transition: color 0.15s;
+    }
+
+    .back-link:hover { color: var(--text-secondary); }
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+    @media (max-width: 900px) {
+      .panel-left { display: none; }
+      .panel-right { width: 100%; padding: 32px 24px; }
+      .page-wrap { justify-content: center; }
+    }
+
+    @media (max-width: 600px) {
+      .panel-right { padding: 28px 20px; }
+      .card-title  { font-size: 1.5rem; }
+      .auth-card   { max-width: 100%; }
+    }
+
+    @media (max-width: 420px) {
+      .panel-right { padding: 24px 16px; }
+      .card-title  { font-size: 1.35rem; }
+      .form-input  { height: 44px; font-size: 0.88rem; }
+      .btn         { height: 46px; font-size: 0.88rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="glow-1" aria-hidden="true"></div>
+<div class="glow-2" aria-hidden="true"></div>
+
+<div class="page-wrap">
+
+  <!-- ====================================================
+       LEFT — Brand Panel
+       ==================================================== -->
+  <div class="panel-left">
+    <a href="index.html" class="brand-logo" aria-label="Go to homepage">
+      <div class="brand-logo-icon">🍽️</div>
+      <div class="brand-logo-text">
+        <span class="g">સ્વાદિષ્ટ</span><span class="e">Eats</span>
+      </div>
+    </a>
+
+    <h1 class="tagline">
+      Order Food.<br/>
+      <span class="highlight">Real Prices.</span><br/>
+      No Surprises.
+    </h1>
+
+    <p class="tagline-desc">
+      Login to order from your favourite local restaurants in Mahuva — or manage your restaurant menu and orders with ease.
+    </p>
+
+    <div class="feature-list">
+      <div class="feature-item">
+        <span class="fi-icon">💰</span>
+        <div class="fi-text">
+          <strong>Same as Walk-In Price</strong>
+          No hidden charges or markups — ever
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="fi-icon">🛵</span>
+        <div class="fi-text">
+          <strong>Real-Time Order Tracking</strong>
+          Watch your delivery on the map
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="fi-icon">🏪</span>
+        <div class="fi-text">
+          <strong>50+ Local Restaurants</strong>
+          All from Mahuva, for Mahuva
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================
+       RIGHT — Login Form
+       ==================================================== -->
+  <div class="panel-right">
+    <div class="auth-card">
+
+      <div class="card-header">
+        <span class="card-header-emoji">👋</span>
+        <h2 class="card-title">Welcome Back!</h2>
+        <p class="card-subtitle">Login to your સ્વાદિષ્ટEats account</p>
+      </div>
+
+      <!-- Alert -->
+      <div class="alert-box" id="loginAlert" role="alert" aria-live="polite"></div>
+
+      <!-- Form -->
+      <form id="loginForm" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="loginEmail">Email Address</label>
+          <input
+            type="email"
+            id="loginEmail"
+            class="form-input"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="loginPassword">Password</label>
+          <div class="pw-wrap">
+            <input
+              type="password"
+              id="loginPassword"
+              class="form-input"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            />
+            <button type="button" class="pw-toggle" onclick="togglePw('loginPassword', this)" aria-label="Show/hide password">👁️</button>
+          </div>
+        </div>
+
+        <div class="forgot-row">
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="loginBtn">
+          🚀 Login to My Account
+        </button>
+      </form>
+
+
+
+      <!-- Footer links -->
+      <div class="link-row">
+        Don't have an account? <a href="signup.html">Sign up free →</a>
+      </div>
+      <a href="index.html" class="back-link">← Back to homepage</a>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ============================================================
+     Login Page Logic
+     ============================================================ */
+
+  // Auto-redirect removed so users can explicitly switch accounts
+
+  // ── Show alert ──
+  function showAlert(type, msg) {
+    const el = document.getElementById('loginAlert');
+    el.className = 'alert-box ' + type;
+    el.textContent = msg;
+    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function hideAlert() {
+    const el = document.getElementById('loginAlert');
+    el.className = 'alert-box';
+    el.textContent = '';
+  }
+
+  // ── Password toggle ──
+  function togglePw(id, btn) {
+    const el = document.getElementById(id);
+    el.type = el.type === 'password' ? 'text' : 'password';
+    btn.textContent = el.type === 'password' ? '👁️' : '🙈';
+  }
+
+  // ── Demo fill ──
+  function fillDemo(role) {
+    document.getElementById('loginEmail').value    = role === 'customer' ? 'customer@demo.com' : 'restaurant@demo.com';
+    document.getElementById('loginPassword').value = 'demo123';
+    showAlert('info', '✅ Demo credentials filled! Press Login.');
+  }
+
+  // ── Set button loading state ──
+  function setLoading(btn, loading, text) {
+    btn.disabled = loading;
+    btn.textContent = text;
+  }
+
+  // ── Login form submit ──
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideAlert();
+
+    const email    = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    const btn      = document.getElementById('loginBtn');
+
+    if (!email) { showAlert('error', '⚠️ Please enter your email address.'); return; }
+    if (!password) { showAlert('error', '⚠️ Please enter your password.'); return; }
+
+    setLoading(btn, true, '⏳ Logging in...');
+
+    try {
+      const res  = await fetch('http://localhost:5000/api/auth/login', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        localStorage.setItem('se_token', data.token);
+        localStorage.setItem('se_user',  JSON.stringify(data.user));
+        showAlert('success', '🎉 ' + data.message);
+        setTimeout(() => {
+          window.location.href = data.user.role === 'restaurant' ? 'restaurant-dashboard.html' : 'customer-dashboard.html';
+        }, 800);
+      } else {
+        showAlert('error', '❌ ' + (data.message || 'Login failed. Please try again.'));
+        setLoading(btn, false, '🚀 Login to My Account');
+      }
+    } catch {
+      // Demo fallback when backend isn't running
+      if (email === 'customer@demo.com' && password === 'demo123') {
+        const user = { id: 'demo-c-1', role: 'customer', name: 'Demo Customer', email };
+        localStorage.setItem('se_token', 'demo-token-customer');
+        localStorage.setItem('se_user',  JSON.stringify(user));
+        showAlert('success', '🎉 Welcome, Demo Customer!');
+        setTimeout(() => window.location.href = 'customer-dashboard.html', 800);
+      } else if (email === 'restaurant@demo.com' && password === 'demo123') {
+        const user = { id: 'demo-r-1', role: 'restaurant', name: 'Demo Owner', restaurantName: 'Demo Restaurant', email, city: 'Mahuva', cuisine: 'Multi-cuisine' };
+        localStorage.setItem('se_token', 'demo-token-restaurant');
+        localStorage.setItem('se_user',  JSON.stringify(user));
+        showAlert('success', '🎉 Welcome, Demo Restaurant!');
+        setTimeout(() => window.location.href = 'restaurant-dashboard.html', 800);
+      } else {
+        showAlert('error', '❌ Incorrect credentials. Use the Demo buttons above to try.');
+        setLoading(btn, false, '🚀 Login to My Account');
+      }
+    }
+  });
+</script>
+</body>
+</html>

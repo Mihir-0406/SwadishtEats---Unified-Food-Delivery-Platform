@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up — સ્વાદિષ્ટEats</title>
+  <meta name="description" content="Create your account on સ્વાદિષ્ટEats as a customer or restaurant partner." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🍽️%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================
+       DESIGN TOKENS
+       ========================================================= */
+    :root {
+      --primary:       #FF6B35;
+      --primary-dark:  #e85520;
+      --primary-light: #FF8C60;
+      --secondary:     #E63946;
+      --accent:        #FFB703;
+
+      --bg-base:   #0A0A0F;
+      --bg-card:   #13131A;
+      --bg-card2:  #1A1A26;
+      --bg-glass:  rgba(255,255,255,0.04);
+
+      --text-primary:   #FFFFFF;
+      --text-secondary: #B0B3C1;
+      --text-muted:     #6B6E82;
+
+      --border:       rgba(255,255,255,0.09);
+      --border-focus: rgba(255,107,53,0.6);
+      --border-hover: rgba(255,107,53,0.35);
+
+      --grad-primary: linear-gradient(135deg, #FF6B35 0%, #E63946 100%);
+
+      --font-main: 'Poppins', sans-serif;
+      --font-body: 'Inter', sans-serif;
+
+      --radius-sm:   8px;
+      --radius-md:   14px;
+      --radius-lg:   20px;
+      --radius-pill: 9999px;
+
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* =========================================================
+       RESET
+       ========================================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    input, select { font-family: inherit; }
+
+    /* =========================================================
+       PAGE LAYOUT
+       ========================================================= */
+    .page-wrap { display: flex; min-height: 100vh; }
+
+    .glow-1, .glow-2 {
+      position: fixed; border-radius: 50%; pointer-events: none; z-index: 0;
+    }
+    .glow-1 { top: -20%; left: -10%; width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(255,107,53,0.10) 0%, transparent 70%); }
+    .glow-2 { bottom: -25%; right: -10%; width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(230,57,70,0.07) 0%, transparent 70%); }
+
+    /* ── Left brand panel ── */
+    .panel-left {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px 56px;
+      background: linear-gradient(160deg, rgba(255,107,53,0.08) 0%, rgba(230,57,70,0.04) 100%);
+      border-right: 1px solid var(--border);
+      min-height: 100vh;
+    }
+
+    .brand-logo {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 40px;
+    }
+
+    .brand-logo-icon {
+      width: 48px; height: 48px;
+      background: var(--grad-primary);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 20px rgba(255,107,53,0.4);
+      flex-shrink: 0;
+    }
+
+    .brand-logo-text {
+      font-family: var(--font-main);
+      font-size: 1.3rem; font-weight: 800; line-height: 1;
+    }
+
+    .brand-logo-text .g { color: var(--primary); }
+    .brand-logo-text .e { color: var(--text-primary); }
+
+    .tagline {
+      font-family: var(--font-main);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 900; line-height: 1.2; margin-bottom: 16px;
+    }
+
+    .tagline .highlight {
+      background: var(--grad-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tagline-desc {
+      font-size: 0.95rem; color: var(--text-secondary);
+      line-height: 1.7; max-width: 380px; margin-bottom: 40px;
+    }
+
+    .feature-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .feature-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 18px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      transition: border-color 0.2s var(--ease);
+    }
+
+    .feature-item:hover { border-color: var(--border-hover); }
+    .fi-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .fi-text { font-size: 0.88rem; color: var(--text-secondary); }
+    .fi-text strong { display: block; font-size: 0.92rem; color: var(--text-primary); font-weight: 600; margin-bottom: 1px; }
+
+    /* ── Right form panel ── */
+    .panel-right {
+      width: 480px;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 40px;
+      min-height: 100vh;
+      overflow-y: auto;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 400px;
+      padding-top: 8px;
+    }
+
+    /* ── Card header ── */
+    .card-header { text-align: center; margin-bottom: 28px; }
+
+    .card-header-emoji {
+      font-size: 2.8rem; display: block; margin-bottom: 12px;
+      animation: pop-in 0.5s var(--ease);
+    }
+
+    @keyframes pop-in {
+      from { transform: scale(0.6); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+
+    .card-title { font-family: var(--font-main); font-size: 1.7rem; font-weight: 800; margin-bottom: 6px; }
+    .card-subtitle { font-size: 0.88rem; color: var(--text-secondary); }
+
+    /* =========================================================
+       ROLE SELECTOR — The key fix!
+       ========================================================= */
+    .role-section { margin-bottom: 20px; }
+
+    .role-section-label {
+      font-size: 0.82rem; font-weight: 600; color: var(--text-secondary);
+      margin-bottom: 10px; letter-spacing: 0.2px;
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* Hide the actual radio input */
+    .role-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    /* The visible card */
+    .role-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 20px 12px;
+      background: var(--bg-card2);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      text-align: center;
+      transition: border-color 0.2s var(--ease), background 0.2s var(--ease), box-shadow 0.2s var(--ease);
+      position: relative;
+      user-select: none;
+    }
+
+    .role-card:hover {
+      border-color: rgba(255, 107, 53, 0.4);
+    }
+
+    /* Checked state */
+    .role-option input:checked + .role-card {
+      border-color: var(--primary);
+      background: rgba(255, 107, 53, 0.1);
+      box-shadow: 0 0 0 1px var(--primary), inset 0 0 20px rgba(255,107,53,0.05);
+    }
+
+    /* Checkmark indicator in top-right */
+    .role-card::after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--bg-card);
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .role-option input:checked + .role-card::after {
+      background: var(--primary);
+      border-color: var(--primary);
+      /* Checkmark */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .role-icon { font-size: 2.2rem; }
+    .role-name { font-family: var(--font-main); font-size: 0.92rem; font-weight: 700; color: var(--text-primary); }
+    .role-desc { font-size: 0.72rem; color: var(--text-muted); line-height: 1.4; }
+
+    /* =========================================================
+       ALERT BOX
+       ========================================================= */
+    .alert-box {
+      display: none;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.86rem;
+      line-height: 1.5;
+      margin-bottom: 18px;
+      border: 1px solid transparent;
+    }
+
+    .alert-box.error {
+      display: block;
+      background: rgba(244, 67, 54, 0.1);
+      border-color: rgba(244, 67, 54, 0.3);
+      color: #FFCDD2;
+    }
+
+    .alert-box.success {
+      display: block;
+      background: rgba(76, 175, 80, 0.1);
+      border-color: rgba(76, 175, 80, 0.3);
+      color: #C8E6C9;
+    }
+
+    /* =========================================================
+       FORM ELEMENTS
+       ========================================================= */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-group { margin-bottom: 14px; }
+
+    .form-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 7px;
+      letter-spacing: 0.2px;
+    }
+
+    .form-input {
+      width: 100%;
+      height: 48px;
+      padding: 0 14px;
+      background: var(--bg-card2);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 0.92rem;
+      font-family: var(--font-body);
+      outline: none;
+      transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+      -webkit-appearance: none;
+    }
+
+    .form-input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.12);
+      background: var(--bg-card);
+    }
+
+    .form-input::placeholder { color: var(--text-muted); }
+
+    /* Select fix */
+    select.form-input {
+      padding-right: 36px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6E82' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      cursor: pointer;
+    }
+
+    /* Password wrapper */
+    .pw-wrap { position: relative; }
+    .pw-wrap .form-input { padding-right: 46px; }
+    .pw-toggle {
+      position: absolute;
+      right: 13px; top: 50%; transform: translateY(-50%);
+      font-size: 1rem; color: var(--text-muted);
+      transition: color 0.15s; padding: 4px; line-height: 1;
+    }
+    .pw-toggle:hover { color: var(--text-primary); }
+
+    /* ── Restaurant extra fields ── */
+    .restaurant-fields {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.4s var(--ease), opacity 0.3s;
+    }
+
+    .restaurant-fields.open {
+      max-height: 400px;
+      opacity: 1;
+    }
+
+    /* =========================================================
+       BUTTONS
+       ========================================================= */
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 50px;
+      padding: 0 24px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-main);
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: transform 0.2s var(--ease), box-shadow 0.2s, opacity 0.2s;
+      cursor: pointer;
+      border: none;
+      width: 100%;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-primary {
+      background: var(--grad-primary);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(255, 107, 53, 0.55);
+    }
+
+    .btn-primary:disabled { opacity: 0.65; cursor: not-allowed; }
+
+    /* ── Terms note ── */
+    .terms-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .terms-note a { color: var(--primary-light); }
+
+    /* ── Bottom links ── */
+    .link-row {
+      text-align: center;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-top: 14px;
+    }
+
+    .link-row a {
+      color: var(--primary-light);
+      font-weight: 600;
+      transition: opacity 0.15s;
+    }
+
+    .link-row a:hover { opacity: 0.8; text-decoration: underline; }
+
+    .back-link {
+      display: block; text-align: center;
+      font-size: 0.78rem; color: var(--text-muted);
+      margin-top: 8px; transition: color 0.15s;
+    }
+
+    .back-link:hover { color: var(--text-secondary); }
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+    @media (max-width: 900px) {
+      .panel-left { display: none; }
+      .panel-right { width: 100%; padding: 32px 24px; }
+      .page-wrap { justify-content: center; }
+    }
+
+    @media (max-width: 600px) {
+      .panel-right { padding: 28px 20px; }
+      .card-title  { font-size: 1.5rem; }
+      .form-row    { grid-template-columns: 1fr; gap: 0; }
+      .role-grid   { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .role-card   { padding: 16px 8px; }
+      .role-icon   { font-size: 1.8rem; }
+    }
+
+    @media (max-width: 420px) {
+      .panel-right { padding: 24px 16px; }
+      .card-title  { font-size: 1.35rem; }
+      .role-grid   { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .role-card   { padding: 14px 6px; }
+      .role-desc   { display: none; }
+      .form-input  { height: 44px; font-size: 0.88rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="glow-1" aria-hidden="true"></div>
+<div class="glow-2" aria-hidden="true"></div>
+
+<div class="page-wrap">
+
+  <!-- ====================================================
+       LEFT — Brand Panel
+       ==================================================== -->
+  <div class="panel-left">
+    <a href="index.html" class="brand-logo" aria-label="Go to homepage">
+      <div class="brand-logo-icon">🍽️</div>
+      <div class="brand-logo-text">
+        <span class="g">સ્વાદિષ્ટ</span><span class="e">Eats</span>
+      </div>
+    </a>
+
+    <h1 class="tagline">
+      Join the<br/>
+      <span class="highlight">Food Revolution</span><br/>
+      in Mahuva.
+    </h1>
+
+    <p class="tagline-desc">
+      Whether you're hungry or a restaurant owner — we've got you covered. Sign up in 60 seconds, for free.
+    </p>
+
+    <div class="feature-list">
+      <div class="feature-item">
+        <span class="fi-icon">👤</span>
+        <div class="fi-text">
+          <strong>For Customers</strong>
+          Order food at real walk-in prices — no markup
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="fi-icon">🏪</span>
+        <div class="fi-text">
+          <strong>For Restaurant Owners</strong>
+          Manage menu, receive orders, keep more profits
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="fi-icon">🚀</span>
+        <div class="fi-text">
+          <strong>Free for First 3 Months</strong>
+          No commission for partners at launch
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================
+       RIGHT — Signup Form
+       ==================================================== -->
+  <div class="panel-right">
+    <div class="auth-card">
+
+      <!-- Header -->
+      <div class="card-header">
+        <span class="card-header-emoji">🎉</span>
+        <h2 class="card-title">Create Account</h2>
+        <p class="card-subtitle">Join સ્વાદિષ્ટEats — it's completely free!</p>
+      </div>
+
+      <!-- Alert -->
+      <div class="alert-box" id="signupAlert" role="alert" aria-live="polite"></div>
+
+      <!-- Role Selector -->
+      <div class="role-section">
+        <p class="role-section-label">I am joining as:</p>
+        <div class="role-grid">
+          <label class="role-option">
+            <input type="radio" name="role" value="customer" checked onchange="onRoleChange()" />
+            <span class="role-card">
+              <span class="role-icon">👤</span>
+              <span class="role-name">Customer</span>
+              <span class="role-desc">I want to order food</span>
+            </span>
+          </label>
+          <label class="role-option">
+            <input type="radio" name="role" value="restaurant" onchange="onRoleChange()" />
+            <span class="role-card">
+              <span class="role-icon">🏪</span>
+              <span class="role-name">Restaurant</span>
+              <span class="role-desc">I want to list my restaurant</span>
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Signup Form -->
+      <form id="signupForm" novalidate>
+
+        <!-- Name + Phone -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="sName">Full Name *</label>
+            <input type="text" id="sName" class="form-input" placeholder="Your full name" required autocomplete="name" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="sPhone">Phone *</label>
+            <input type="tel" id="sPhone" class="form-input" placeholder="9XXXXXXXXX" required autocomplete="tel" />
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label class="form-label" for="sEmail">Email Address *</label>
+          <input type="email" id="sEmail" class="form-input" placeholder="you@example.com" required autocomplete="email" />
+        </div>
+
+        <!-- Restaurant-only extra fields (animated reveal) -->
+        <div class="restaurant-fields" id="restaurantFields">
+          <div class="form-group">
+            <label class="form-label" for="sRestName">Restaurant Name *</label>
+            <input type="text" id="sRestName" class="form-input" placeholder="e.g. Lapinoz Pizza, Raju Dhaba" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="sCity">City *</label>
+              <input type="text" id="sCity" class="form-input" placeholder="Mahuva" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="sCuisine">Cuisine Type</label>
+              <input type="text" id="sCuisine" class="form-input" placeholder="Pizza, Biryani…" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label class="form-label" for="sPassword">Password *</label>
+          <div class="pw-wrap">
+            <input type="password" id="sPassword" class="form-input" placeholder="Min 6 characters" required autocomplete="new-password" />
+            <button type="button" class="pw-toggle" onclick="togglePw('sPassword', this)" aria-label="Show/hide password">👁️</button>
+          </div>
+        </div>
+
+        <!-- Terms -->
+        <p class="terms-note">
+          By signing up you agree to our
+          <a href="#">Terms of Service</a> &amp; <a href="#">Privacy Policy</a>.
+        </p>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary" id="signupBtn">
+          🚀 Create My Account
+        </button>
+      </form>
+
+      <!-- Footer links -->
+      <div class="link-row">
+        Already have an account? <a href="login.html">Login →</a>
+      </div>
+      <a href="index.html" class="back-link">← Back to homepage</a>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ============================================================
+     Signup Page Logic
+     ============================================================ */
+
+  // Auto-redirect removed so users can explicitly switch accounts
+
+  // ── Role change ──
+  function onRoleChange() {
+    const role     = document.querySelector('input[name="role"]:checked').value;
+    const fields   = document.getElementById('restaurantFields');
+    const btn      = document.getElementById('signupBtn');
+
+    fields.classList.toggle('open', role === 'restaurant');
+    btn.textContent = role === 'restaurant' ? '🏪 Register My Restaurant' : '🚀 Create My Account';
+  }
+
+  // ── Password toggle ──
+  function togglePw(id, btn) {
+    const el = document.getElementById(id);
+    el.type = el.type === 'password' ? 'text' : 'password';
+    btn.textContent = el.type === 'password' ? '👁️' : '🙈';
+  }
+
+  // ── Alert ──
+  function showAlert(type, msg) {
+    const el = document.getElementById('signupAlert');
+    el.className = 'alert-box ' + type;
+    el.textContent = msg;
+    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function hideAlert() {
+    const el = document.getElementById('signupAlert');
+    el.className = 'alert-box';
+    el.textContent = '';
+  }
+
+  // ── Validate Indian phone ──
+  function isValidPhone(p) { return /^[6-9]\d{9}$/.test(p.replace(/[\s-]/g, '')); }
+
+  // ── Form submit ──
+  document.getElementById('signupForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideAlert();
+
+    const role = document.querySelector('input[name="role"]:checked').value;
+    const btn  = document.getElementById('signupBtn');
+
+    const name     = document.getElementById('sName').value.trim();
+    const phone    = document.getElementById('sPhone').value.trim();
+    const email    = document.getElementById('sEmail').value.trim();
+    const password = document.getElementById('sPassword').value;
+    const restName = document.getElementById('sRestName').value.trim();
+    const city     = document.getElementById('sCity').value.trim();
+    const cuisine  = document.getElementById('sCuisine').value.trim();
+
+    // Validation
+    if (!name)     { showAlert('error', '⚠️ Full name is required.'); return; }
+    if (!phone)    { showAlert('error', '⚠️ Phone number is required.'); return; }
+    if (!isValidPhone(phone)) { showAlert('error', '⚠️ Enter a valid 10-digit Indian phone number starting with 6-9.'); return; }
+    if (!email)    { showAlert('error', '⚠️ Email address is required.'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showAlert('error', '⚠️ Enter a valid email address.'); return; }
+    if (!password) { showAlert('error', '⚠️ Password is required.'); return; }
+    if (password.length < 6) { showAlert('error', '⚠️ Password must be at least 6 characters.'); return; }
+    if (role === 'restaurant' && !restName) { showAlert('error', '⚠️ Restaurant name is required.'); return; }
+
+    const payload = { role, name, phone, email, password };
+    if (role === 'restaurant') {
+      payload.restaurantName = restName;
+      payload.city           = city || 'Mahuva';
+      payload.cuisine        = cuisine || 'Multi-cuisine';
+    }
+
+    btn.disabled    = true;
+    btn.textContent = '⏳ Creating account…';
+
+    try {
+      const res  = await fetch('http://localhost:5000/api/auth/register', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(payload),
+      });
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        localStorage.setItem('se_token', data.token);
+        localStorage.setItem('se_user',  JSON.stringify(data.user));
+        showAlert('success', '🎉 ' + data.message + ' Redirecting…');
+        setTimeout(() => {
+          window.location.href = role === 'restaurant' ? 'restaurant-dashboard.html' : 'customer-dashboard.html';
+        }, 900);
+      } else {
+        showAlert('error', '❌ ' + (data.message || 'Registration failed. Please try again.'));
+        btn.disabled    = false;
+        btn.textContent = role === 'restaurant' ? '🏪 Register My Restaurant' : '🚀 Create My Account';
+      }
+    } catch {
+      // Demo fallback (backend not running)
+      const user = {
+        id:             'local-' + Date.now(),
+        role,
+        name,
+        email,
+        phone,
+        restaurantName: payload.restaurantName || null,
+        city:           payload.city || 'Mahuva',
+        cuisine:        payload.cuisine || 'Multi-cuisine',
+      };
+      localStorage.setItem('se_token', 'demo-token-' + role + '-' + Date.now());
+      localStorage.setItem('se_user',  JSON.stringify(user));
+      showAlert('success', '🎉 Welcome, ' + name + '! Redirecting…');
+      setTimeout(() => {
+        window.location.href = role === 'restaurant' ? 'restaurant-dashboard.html' : 'customer-dashboard.html';
+      }, 900);
+    }
+  });
+</script>
+</body>
+</html>

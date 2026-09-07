@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>સ્વાદિષ્ટEats — Order Food</title>
+  <meta name="description"
+    content="સ્વાદિષ્ટEats is your local food ordering platform with fair 5-10% commission, no ghost kitchens, and real menu prices. Order from your favourite restaurants in Mahuva without the Zomato markup." />
+  <meta name="keywords"
+    content="food delivery, Mahuva, local food, no commission, SwadishEats, fair price food ordering" />
+  <meta property="og:title" content="સ્વાદિષ્ટEats — Order Food" />
+  <meta property="og:description"
+    content="Local food ordering with honest pricing. No hidden charges. Fair commission." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🍽️%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+
+  <!-- ====================================================
+     MOBILE OVERLAY & MENU
+     ==================================================== -->
+  <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+    <a href="#home" onclick="closeMobileMenu()">🏠 Home</a>
+    <a href="#how-it-works" onclick="closeMobileMenu()">⚙️ How It Works</a>
+    <a href="#restaurants" onclick="closeMobileMenu()">🍽️ Restaurants</a>
+    <a href="#partner" onclick="closeMobileMenu()">🤝 For Partners</a>
+    <a href="#waitlist" onclick="closeMobileMenu()">🚀 Join Waitlist</a>
+    <div style="margin-top:auto; display:flex; flex-direction:column; gap:10px;">
+      <a class="btn btn-outline" href="login.html" onclick="closeMobileMenu()" style="display:flex;justify-content:center;">Login</a>
+      <a class="btn btn-primary" href="signup.html" onclick="closeMobileMenu()" style="display:flex;justify-content:center;">Sign Up Free</a>
+    </div>
+  </nav>
+
+  <!-- ====================================================
+     NAVBAR
+     ==================================================== -->
+  <header class="navbar" id="navbar" role="banner">
+    <div class="container">
+      <nav class="nav-inner" aria-label="Main navigation">
+        <!-- Logo -->
+        <a href="#home" class="nav-logo" aria-label="સ્વાદિષ્ટEats Home">
+          <div class="nav-logo-icon" aria-hidden="true">🍽️</div>
+          <div class="nav-logo-text">
+            <span class="gujarati">સ્વાદિષ્ટ</span><span class="english">Eats</span>
+          </div>
+        </a>
+
+        <!-- Desktop Links -->
+        <ul class="nav-links" role="list">
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#restaurants">Restaurants</a></li>
+          <li><a href="#partner">For Partners</a></li>
+          <li><a href="#waitlist">Waitlist</a></li>
+        </ul>
+
+        <!-- Desktop CTA -->
+        <div class="nav-cta">
+          <a href="login.html" class="btn btn-outline btn-sm" id="nav-login-btn">Login</a>
+          <a href="signup.html" class="btn btn-primary btn-sm" id="nav-signup-btn">Sign Up Free 🚀</a>
+        </div>
+
+        <!-- Hamburger -->
+        <button class="hamburger" id="hamburger" onclick="openMobileMenu()" aria-label="Open mobile menu"
+          aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ====================================================
+     HERO
+     ==================================================== -->
+  <main>
+    <section id="home" class="hero" aria-labelledby="hero-heading">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-grid-overlay" aria-hidden="true"></div>
+
+      <div class="container">
+        <div class="hero-content">
+          <!-- Text -->
+          <div class="hero-text">
+            <div class="hero-badge reveal">
+              <span class="badge">🎉 Launching in Mahuva — Join the Waitlist!</span>
+            </div>
+
+            <h1 class="hero-title reveal delay-1" id="hero-heading">
+              Fresh Food.<br />
+              <span class="brand-name text-gradient">સ્વાદિષ્ટEats</span>
+              From Shop.<br />
+              To Your Door.
+            </h1>
+
+            <p class="hero-subtitle reveal delay-2">
+              Browse your favourite local restaurants, pick what you love,
+              and get it delivered <strong>hot and fresh</strong> straight to your door.
+              Simple ordering. Live tracking.
+              <span style="color:var(--accent); font-weight:700;">Delicious food, every time.</span>
+            </p>
+
+            <div class="hero-actions reveal delay-3">
+              <a href="#waitlist" class="btn btn-primary btn-lg" id="hero-cta-waitlist">
+                🚀 Get Early Access
+              </a>
+              <a href="#how-it-works" class="btn btn-outline btn-lg">
+                ▶ See How It Works
+              </a>
+            </div>
+
+            <div class="hero-trust reveal delay-4">
+              <div class="trust-item">
+                <span class="icon">✅</span>
+                <span>No Hidden Charges</span>
+              </div>
+              <div class="trust-item">
+                <span class="icon">✅</span>
+                <span>Real Menu Prices</span>
+              </div>
+              <div class="trust-item">
+                <span class="icon">✅</span>
+                <span>Local & Authentic</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Visual -->
+          <div class="hero-visual reveal-right reveal delay-2">
+            <div class="hero-image-wrapper">
+              <img src="images/hero_banner.png" alt="Delicious Indian food items ready for delivery via સ્વાદિષ્ટEats"
+                loading="eager" />
+
+              <!-- Floating Card 1 — Delivery Time -->
+              <div class="hero-floating-card card-1" aria-hidden="true">
+                <div class="card-title">🛵 Avg. Delivery Time</div>
+                <div class="card-icon-row">
+                  <div class="card-value saving">28 min</div>
+                  <span style="font-size:0.75rem; color:var(--text-muted);">to your door</span>
+                </div>
+              </div>
+
+              <!-- Floating Card 2 — Orders Today -->
+              <div class="hero-floating-card card-2" aria-hidden="true">
+                <div class="card-title">📦 Orders Today</div>
+                <div class="card-value order" id="ordersCounter">0</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+     STATS BAR
+     ==================================================== -->
+    <section class="stats-bar" aria-label="Key statistics">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item reveal delay-1">
+            <span class="stat-icon">🍽️</span>
+            <div class="stat-value" data-count="50">50+</div>
+            <div class="stat-label">Local Restaurants Ready</div>
+          </div>
+          <div class="stat-item reveal delay-2">
+            <span class="stat-icon">🛵</span>
+            <div class="stat-value" data-count="28">28<span style="font-size:1rem">min</span></div>
+            <div class="stat-label">Average Delivery Time</div>
+          </div>
+          <div class="stat-item reveal delay-3">
+            <span class="stat-icon">⭐</span>
+            <div class="stat-value">4.8</div>
+            <div class="stat-label">Customer Rating</div>
+          </div>
+          <div class="stat-item reveal delay-4">
+            <span class="stat-icon">💚</span>
+            <div class="stat-value" data-count="100">100%</div>
+            <div class="stat-label">Transparent Billing</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+     HOW IT WORKS
+     ==================================================== -->
+    <section id="how-it-works" class="how-it-works section-padding" aria-labelledby="how-heading">
+      <div class="container">
+        <div class="section-label reveal">
+          <span class="badge">⚙️ Simple Process</span>
+        </div>
+        <h2 class="section-title reveal delay-1" id="how-heading">
+          How <span class="text-gradient">સ્વાદિષ્ટEats</span> Works
+        </h2>
+        <p class="section-subtitle reveal delay-2">
+          Order food from local restaurants in 3 simple steps — no tricks, no surprises.
+        </p>
+
+        <div class="steps-grid">
+          <div class="step-card reveal delay-1">
+            <div class="step-number" aria-hidden="true">1</div>
+            <span class="step-emoji" aria-hidden="true">📍</span>
+            <h3 class="step-title">Browse Local Restaurants</h3>
+            <p class="step-desc">Find your favourite local dhabas, cafes, and restaurant chains near you. All showing
+              their real menu prices — same as walk-in.</p>
+          </div>
+
+          <div class="step-card reveal delay-2">
+            <div class="step-number" aria-hidden="true">2</div>
+            <span class="step-emoji" aria-hidden="true">🛒</span>
+            <h3 class="step-title">Add to Cart & Checkout</h3>
+            <p class="step-desc">Choose your items, pay with UPI, card, or cash on delivery. See the exact breakdown —
+              only GST, no fake "platform fees".</p>
+          </div>
+
+          <div class="step-card reveal delay-3">
+            <div class="step-number" aria-hidden="true">3</div>
+            <span class="step-emoji" aria-hidden="true">🛵</span>
+            <h3 class="step-title">Track & Enjoy</h3>
+            <p class="step-desc">Real-time delivery tracking on the map. Our delivery partners bring your food hot and
+              fresh — right to your door.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+     RESTAURANT SHOWCASE
+     ==================================================== -->
+    <section id="restaurants" class="restaurants-section section-padding" aria-labelledby="rest-heading">
+      <div class="container">
+        <div class="section-label reveal">
+          <span class="badge">🍽️ Featured Partners</span>
+        </div>
+        <h2 class="section-title reveal delay-1" id="rest-heading">
+          Your Favourite <span class="text-gradient">Local Restaurants</span>
+        </h2>
+        <p class="section-subtitle reveal delay-2">
+          Real food. Real prices. Delivered from your neighbourhood — hot and fresh.
+        </p>
+
+        <div class="restaurants-grid">
+          <!-- Card 1 -->
+          <article class="restaurant-card reveal delay-1">
+            <div class="restaurant-img" role="img" aria-label="Lapinoz Pizza">
+              🍕
+              <div class="restaurant-badge">⭐ Partner</div>
+            </div>
+            <div class="restaurant-info">
+              <h3 class="restaurant-name">Lapinoz Pizza</h3>
+              <div class="restaurant-meta">
+                <span class="rating">⭐ 4.7</span>
+                <span>•</span>
+                <span>25–35 mins</span>
+                <span>•</span>
+                <span>Mahuva</span>
+              </div>
+              <div class="price-compare" role="region" aria-label="Popular dishes">
+                <div>
+                  <div style="font-size:0.8rem;color:var(--text-muted);">🍕 Popular Dishes</div>
+                  <div style="font-size:0.9rem;font-weight:600;color:var(--text-primary);">Margherita, BBQ Chicken, Farmhouse</div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="restaurant-card reveal delay-2">
+            <div class="restaurant-img" role="img" aria-label="Local Biryani House">
+              🍛
+              <div class="restaurant-badge">🔥 Popular</div>
+            </div>
+            <div class="restaurant-info">
+              <h3 class="restaurant-name">Biryani House</h3>
+              <div class="restaurant-meta">
+                <span class="rating">⭐ 4.5</span>
+                <span>•</span>
+                <span>30–40 mins</span>
+                <span>•</span>
+                <span>Mahuva</span>
+              </div>
+              <div class="price-compare">
+                <div>
+                  <div style="font-size:0.8rem;color:var(--text-muted);">🍛 Popular Dishes</div>
+                  <div style="font-size:0.9rem;font-weight:600;color:var(--text-primary);">Chicken Biryani, Hyderabadi, Veg Dum</div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="restaurant-card reveal delay-3">
+            <div class="restaurant-img" role="img" aria-label="Punjabi Dhaba">
+              🫓
+              <div class="restaurant-badge">💚 New</div>
+            </div>
+            <div class="restaurant-info">
+              <h3 class="restaurant-name">Punjabi Dhaba</h3>
+              <div class="restaurant-meta">
+                <span class="rating">⭐ 4.3</span>
+                <span>•</span>
+                <span>20–30 mins</span>
+                <span>•</span>
+                <span>Mahuva</span>
+              </div>
+              <div class="price-compare">
+                <div>
+                  <div style="font-size:0.8rem;color:var(--text-muted);">🫓 Popular Dishes</div>
+                  <div style="font-size:0.9rem;font-weight:600;color:var(--text-primary);">Butter Chicken, Dal Makhani, Naan</div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="restaurant-card reveal delay-4">
+            <div class="restaurant-img" role="img" aria-label="Burger Junction">
+              🍔
+              <div class="restaurant-badge">⭐ Partner</div>
+            </div>
+            <div class="restaurant-info">
+              <h3 class="restaurant-name">Burger Junction</h3>
+              <div class="restaurant-meta">
+                <span class="rating">⭐ 4.6</span>
+                <span>•</span>
+                <span>20–25 mins</span>
+                <span>•</span>
+                <span>Mahuva</span>
+              </div>
+              <div class="price-compare">
+                <div>
+                  <div style="font-size:0.8rem;color:var(--text-muted);">🍔 Popular Dishes</div>
+                  <div style="font-size:0.9rem;font-weight:600;color:var(--text-primary);">Classic Burger, Crispy Chicken, Loaded Fries</div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 5 -->
+          <article class="restaurant-card reveal delay-2">
+            <div class="restaurant-img" role="img" aria-label="Masala Dosa Corner">
+              🥘
+              <div class="restaurant-badge">🔥 Popular</div>
+            </div>
+            <div class="restaurant-info">
+              <h3 class="restaurant-name">Masala Dosa Corner</h3>
+              <div class="restaurant-meta">
+                <span class="rating">⭐ 4.8</span>
+                <span>•</span>
+                <span>15–25 mins</span>
+                <span>•</span>
+                <span>Mahuva</span>
+              </div>
+              <div class="price-compare">
+                <div>
+                  <div style="font-size:0.8rem;color:var(--text-muted);">🥘 Popular Dishes</div>
+                  <div style="font-size:0.9rem;font-weight:600;color:var(--text-primary);">Masala Dosa, Idli Sambar, Vada Pav</div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 6 — CTA -->
+          <article class="restaurant-card reveal delay-3"
+            style="display:flex;align-items:center;justify-content:center;text-align:center;padding:var(--space-lg);min-height:240px;">
+            <div>
+              <div style="font-size:3rem;margin-bottom:var(--space-sm);">🏪</div>
+              <h3 style="font-family:var(--font-main);font-size:1.1rem;margin-bottom:var(--space-xs);">Your Restaurant Here?
+              </h3>
+              <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:var(--space-sm);">List your restaurant on
+                સ્વાદિષ્ટEats and reach more customers in Mahuva — for free at launch!</p>
+              <a href="#partner" class="btn btn-primary btn-sm" id="rest-partner-cta">Join as Partner</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+     PARTNER SECTION
+     ==================================================== -->
+    <section id="partner" class="partner-section" aria-labelledby="partner-heading">
+      <div class="container">
+        <div class="partner-grid">
+          <!-- Text Side -->
+          <div class="partner-text">
+            <div class="section-label reveal" style="text-align:left;">
+              <span class="badge">🤝 Restaurant Partners</span>
+            </div>
+            <h2 class="section-title reveal delay-1" id="partner-heading" style="text-align:left;">
+              Grow Your Restaurant.<br />
+              <span class="text-gradient">Keep Your Profits.</span>
+            </h2>
+            <p class="section-subtitle reveal delay-2" style="text-align:left;margin-left:0;">
+              Stop losing 25–40% of every order to Zomato. Join સ્વાદિષ્ટEats and keep more of what you earn.
+            </p>
+
+            <div class="partner-benefits reveal delay-2">
+              <div class="benefit-item">
+                <div class="benefit-icon">💰</div>
+                <div class="benefit-info">
+                  <div class="benefit-title">Only 5–10% Commission</div>
+                  <div class="benefit-desc">vs 25–40% on Zomato/Swiggy. Keep more of every order.</div>
+                </div>
+              </div>
+              <div class="benefit-item">
+                <div class="benefit-icon">📊</div>
+                <div class="benefit-info">
+                  <div class="benefit-title">Free Analytics Dashboard</div>
+                  <div class="benefit-desc">Track orders, revenue, and popular items — all in one place.</div>
+                </div>
+              </div>
+              <div class="benefit-item">
+                <div class="benefit-icon">🚀</div>
+                <div class="benefit-info">
+                  <div class="benefit-title">0% Commission for First 3 Months</div>
+                  <div class="benefit-desc">Early partners get a full 3-month free trial. No credit card needed.</div>
+                </div>
+              </div>
+              <div class="benefit-item">
+                <div class="benefit-icon">🛡️</div>
+                <div class="benefit-info">
+                  <div class="benefit-title">Your Data Stays Yours</div>
+                  <div class="benefit-desc">We never sell your order data or create competing ghost kitchens.</div>
+                </div>
+              </div>
+            </div>
+
+            <a href="#partner" class="btn btn-accent btn-lg reveal delay-3" id="partner-learn-more">
+              📋 Apply to Partner →
+            </a>
+          </div>
+
+          <!-- Form Side -->
+          <div class="partner-form-card reveal-right reveal delay-2">
+            <div class="form-success" id="partnerSuccess">
+              <div class="success-icon">🎉</div>
+              <h3 style="font-family:var(--font-main);font-size:1.3rem;margin-bottom:8px;">Application Received!</h3>
+              <p>Our team will contact you within 24 hours to get you onboarded. Welcome to the family!</p>
+            </div>
+            <form id="partnerForm" novalidate>
+              <div class="form-title">🏪 Register Your Restaurant</div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="ownerName">Owner Name *</label>
+                  <input type="text" id="ownerName" name="ownerName" class="form-input" placeholder="Your full name"
+                    required autocomplete="name" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="phone">Phone Number *</label>
+                  <input type="tel" id="phone" name="phone" class="form-input" placeholder="9XXXXXXXXX" required
+                    autocomplete="tel" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="restaurantName">Restaurant Name *</label>
+                <input type="text" id="restaurantName" name="restaurantName" class="form-input"
+                  placeholder="e.g. Lapinoz, Biryani House" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email">Email Address</label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="you@example.com"
+                  autocomplete="email" />
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="city">City *</label>
+                  <input type="text" id="city" name="city" class="form-input" placeholder="Mahuva" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="cuisine">Cuisine Type</label>
+                  <input type="text" id="cuisine" name="cuisine" class="form-input" placeholder="e.g. Pizza, Biryani" />
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px;"
+                id="partnerSubmitBtn">
+                🚀 Submit Application
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+     TESTIMONIALS
+     ==================================================== -->
+    <section class="testimonials-section section-padding" aria-labelledby="testimonials-heading">
+      <div class="container">
+        <div class="section-label reveal">
+          <span class="badge">💬 Early Feedback</span>
+        </div>
+        <h2 class="section-title reveal delay-1" id="testimonials-heading">
+          What People Are <span class="text-gradient">Saying</span>
+        </h2>
+        <p class="section-subtitle reveal delay-2">
+          From restaurant owners and customers who've seen the vision.
+        </p>
+
+        <div class="testimonials-grid">
+          <div class="testimonial-card reveal delay-1">
+            <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
+            <p class="testimonial-text">"Zomato was charging me ₹40 commission per order. I was paying them more than I
+              earned on cheap items. સ્વાદિષ્ટEats is exactly what restaurant owners in small cities need."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar" aria-hidden="true">👨‍🍳</div>
+              <div>
+                <div class="author-name">Raju Bhai</div>
+                <div class="author-location">📍 Restaurant Owner, Mahuva</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card reveal delay-2">
+            <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
+            <p class="testimonial-text">"I ordered pizza from Lapinoz through Zomato for ₹220. My friend ordered at the
+              counter for ₹158. Same pizza! I'm done with Zomato. Can't wait for this to launch."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar" aria-hidden="true">👩</div>
+              <div>
+                <div class="author-name">Priya Patel</div>
+                <div class="author-location">📍 Customer, Mahuva</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card reveal delay-3">
+            <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
+            <p class="testimonial-text">"Finally someone is solving the real problem. Zomato created its own biryani
+              brand using MY popular item data and started competing with me. This is unacceptable. #SupportLocal"</p>
+            <div class="testimonial-author">
+              <div class="author-avatar" aria-hidden="true">🧑‍💼</div>
+              <div>
+                <div class="author-name">Mahesh Kothari</div>
+                <div class="author-location">📍 Dhaba Owner, Bhavnagar</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+     WAITLIST SECTION
+     ==================================================== -->
+    <section id="waitlist" class="waitlist-section" aria-labelledby="waitlist-heading">
+      <div class="container">
+        <div class="waitlist-card reveal">
+          <div class="waitlist-emoji" aria-hidden="true">🚀</div>
+          <h2 class="waitlist-title" id="waitlist-heading">
+            Be the <span class="text-gradient">First to Order</span><br />in Mahuva!
+          </h2>
+          <p class="waitlist-subtitle">
+            Join our early access list. Get <strong>FREE delivery for first 5 orders</strong> + exclusive launch offers.
+          </p>
+
+          <form class="waitlist-form" id="waitlistForm" novalidate>
+            <input type="email" id="waitlistEmail" name="email" class="form-input"
+              placeholder="Enter your email address" required autocomplete="email"
+              aria-label="Email address for waitlist" />
+            <button type="submit" class="btn btn-primary" id="waitlistSubmitBtn">
+              Join Now 🎉
+            </button>
+          </form>
+
+          <p class="waitlist-note">🔒 No spam ever. Unsubscribe anytime.</p>
+
+          <div class="waitlist-count reveal delay-2">
+            <span class="waitlist-dot" aria-hidden="true"></span>
+            <span id="waitlistCount">142 people</span> already on the waitlist
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+     APP DOWNLOAD SECTION
+     ==================================================== -->
+    <section class="app-section" aria-labelledby="app-heading">
+      <div class="container">
+        <div class="app-grid">
+          <!-- Visual -->
+          <div class="app-visual reveal-left reveal">
+            <!-- Phone mock 1 -->
+            <div class="app-phone-mock" aria-hidden="true">
+              <div class="phone-screen">
+                <div class="phone-header">🍽️ સ્વાદિષ્ટEats</div>
+                <div class="phone-search"></div>
+                <div class="phone-cat">
+                  <div class="phone-cat-item">🍕 Pizza</div>
+                  <div class="phone-cat-item">🍛 Biryani</div>
+                  <div class="phone-cat-item">🍔 Burgers</div>
+                </div>
+                <div class="phone-card">
+                  <div class="phone-card-icon">🍕</div>
+                  <div class="phone-card-info">
+                    <div class="phone-card-name">Lapinoz Pizza</div>
+                    <div class="phone-card-sub">⭐4.7 • 25 mins</div>
+                  </div>
+                  <div class="phone-card-price">₹158</div>
+                </div>
+                <div class="phone-card">
+                  <div class="phone-card-icon">🍛</div>
+                  <div class="phone-card-info">
+                    <div class="phone-card-name">Biryani House</div>
+                    <div class="phone-card-sub">⭐4.5 • 35 mins</div>
+                  </div>
+                  <div class="phone-card-price">₹199</div>
+                </div>
+                <div class="phone-card">
+                  <div class="phone-card-icon">🍔</div>
+                  <div class="phone-card-info">
+                    <div class="phone-card-name">Burger Junction</div>
+                    <div class="phone-card-sub">⭐4.6 • 20 mins</div>
+                  </div>
+                  <div class="phone-card-price">₹179</div>
+                </div>
+              </div>
+            </div>
+            <!-- Phone mock 2 -->
+            <div class="app-phone-mock" aria-hidden="true">
+              <div class="phone-screen">
+                <div class="phone-header">📦 Your Order</div>
+                <div
+                  style="height:60px;background:var(--bg-card);border-radius:10px;margin-bottom:8px;display:flex;align-items:center;padding:8px;gap:6px;">
+                  <span style="font-size:1.3rem;">✅</span>
+                  <div>
+                    <div style="font-size:0.55rem;font-weight:700;">Order Confirmed!</div>
+                    <div style="font-size:0.45rem;color:var(--text-muted);">Lapinoz Pizza • 2 items</div>
+                  </div>
+                </div>
+                <div style="font-size:0.55rem;color:var(--text-muted);margin-bottom:6px;">Live Tracking</div>
+                <div
+                  style="height:100px;background:var(--bg-card);border-radius:10px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;">
+                  <div style="text-align:center;">
+                    <div style="font-size:1.5rem;">🛵</div>
+                    <div style="font-size:0.5rem;color:var(--primary);font-weight:700;">12 min away</div>
+                  </div>
+                </div>
+                <div
+                  style="padding:10px;background:rgba(76,175,80,0.1);border-radius:8px;border:1px solid rgba(76,175,80,0.2);">
+                  <div style="font-size:0.52rem;margin-bottom:4px;font-weight:600;">Bill Summary</div>
+                  <div style="display:flex;justify-content:space-between;font-size:0.5rem;color:var(--text-muted);">
+                    <span>Food Total</span><span>₹158</span>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;font-size:0.5rem;color:var(--text-muted);">
+                    <span>GST (5%)</span><span>₹8</span>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;font-size:0.5rem;color:var(--text-muted);">
+                    <span>Delivery</span><span>₹20</span>
+                  </div>
+                  <div
+                    style="display:flex;justify-content:space-between;font-size:0.6rem;font-weight:700;margin-top:4px;color:var(--primary);">
+                    <span>Total</span><span>₹186</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text -->
+          <div class="reveal-right reveal delay-1">
+            <div class="section-label" style="text-align:left;margin-bottom:var(--space-sm);">
+              <span class="badge">📱 Mobile App</span>
+            </div>
+            <h2 class="section-title" id="app-heading" style="text-align:left;font-size:clamp(1.8rem,3vw,2.8rem);">
+              Order Food on the<br /><span class="text-gradient">Go, Anytime.</span>
+            </h2>
+            <p style="color:var(--text-secondary);line-height:1.7;margin-bottom:var(--space-md);">
+              Our mobile app gives you real-time order tracking, easy reordering, loyalty rewards, and a seamless
+              checkout experience — all with zero hidden charges.
+            </p>
+
+            <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:var(--space-lg);">
+              <div style="display:flex;align-items:center;gap:12px;font-size:0.9rem;">
+                <span style="color:var(--accent);font-size:1.1rem;">⚡</span>
+                <span>Real-time GPS order tracking</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;font-size:0.9rem;">
+                <span style="color:var(--accent);font-size:1.1rem;">💳</span>
+                <span>Pay via UPI, Card, Net Banking, or COD</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;font-size:0.9rem;">
+                <span style="color:var(--accent);font-size:1.1rem;">🎁</span>
+                <span>Earn loyalty points on every order</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;font-size:0.9rem;">
+                <span style="color:var(--accent);font-size:1.1rem;">🔔</span>
+                <span>Smart notifications for deals & new restaurants</span>
+              </div>
+            </div>
+
+            <div class="app-store-buttons">
+              <a href="#waitlist" class="store-btn" id="playstore-btn" aria-label="Get on Google Play (Coming Soon)">
+                <span class="store-icon">▶</span>
+                <div class="store-text">
+                  <small>Get it on</small>
+                  <strong>Google Play</strong>
+                </div>
+              </a>
+              <a href="#waitlist" class="store-btn" id="appstore-btn" aria-label="Download on App Store (Coming Soon)">
+                <span class="store-icon">🍎</span>
+                <div class="store-text">
+                  <small>Download on</small>
+                  <strong>App Store</strong>
+                </div>
+              </a>
+            </div>
+            <p style="font-size:0.78rem;color:var(--text-muted);margin-top:var(--space-sm);">📅 App launching soon. Join
+              waitlist for early access.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ====================================================
+     FOOTER
+     ==================================================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand -->
+        <div class="footer-brand">
+          <a href="#home" class="nav-logo" aria-label="સ્વાદિષ્ટEats">
+            <div class="nav-logo-icon" aria-hidden="true">🍽️</div>
+            <div class="nav-logo-text">
+              <span class="gujarati">સ્વાદિષ્ટ</span><span class="english">Eats</span>
+            </div>
+          </a>
+          <p>
+            Local food. Real prices. No drama.<br />
+            Building a fair food ecosystem for Tier 2 & 3 cities of India — starting from Mahuva, Gujarat.
+          </p>
+          <div class="footer-social" aria-label="Social media links">
+            <a href="#" class="social-link" aria-label="Instagram">📸</a>
+            <a href="#" class="social-link" aria-label="Facebook">👥</a>
+            <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+            <a href="#" class="social-link" aria-label="WhatsApp">💬</a>
+          </div>
+        </div>
+
+        <!-- Company -->
+        <nav aria-label="Company links">
+          <div class="footer-col-title">Company</div>
+          <ul class="footer-links">
+            <li><a href="#why-us">About Us</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#partner">Careers</a></li>
+            <li><a href="#waitlist">Press</a></li>
+            <li><a href="#waitlist">Blog</a></li>
+          </ul>
+        </nav>
+
+        <!-- For Restaurants -->
+        <nav aria-label="Partner links">
+          <div class="footer-col-title">For Restaurants</div>
+          <ul class="footer-links">
+            <li><a href="#partner">Partner With Us</a></li>
+            <li><a href="#partner">Restaurant Dashboard</a></li>
+            <li><a href="#partner">Commission Structure</a></li>
+            <li><a href="#partner">Success Stories</a></li>
+          </ul>
+        </nav>
+
+        <!-- Legal -->
+        <nav aria-label="Legal links">
+          <div class="footer-col-title">Legal & Support</div>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Refund Policy</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">FSSAI Info</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="footer-bottom">
+        <p>© 2024 સ્વાદિષ્ટEats. Made with ❤️ in Mahuva, Gujarat, India.</p>
+        <nav class="footer-bottom-links" aria-label="Legal quick links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Cookies</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ====================================================
+     TOAST
+     ==================================================== -->
+  <div class="toast" id="toast" role="alert" aria-live="polite">
+    <div class="toast-icon" id="toastIcon">✅</div>
+    <div class="toast-content">
+      <div class="toast-title" id="toastTitle">Success!</div>
+      <div class="toast-msg" id="toastMsg">You're on the list.</div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>
